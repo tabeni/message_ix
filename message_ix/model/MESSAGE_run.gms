@@ -68,6 +68,30 @@ $INCLUDE MESSAGE/model_setup.gms
 * solve statements (including the loop for myopic or rolling-horizon optimization)                                     *
 *----------------------------------------------------------------------------------------------------------------------*
 
+Parameter
+demand_fixed_aim(node,commodity,level,year_all,time)
+;
+$gdxin '../../../Linkage/output/CGE2MESSAGE.gdx'
+$load demand_fixed_aim=demand_fixed
+demand_fixed(node,commodity,level,year_all,time)=demand_fixed_aim(node,commodity,level,year_all,time);
+
+$ifthen %linksce%==mitigation
+  tax_emission('World','TCE','all','2020')=110;
+  tax_emission('World','TCE','all','2025')=141;
+  tax_emission('World','TCE','all','2030')=180;
+  tax_emission('World','TCE','all','2035')=229;
+  tax_emission('World','TCE','all','2040')=293;
+  tax_emission('World','TCE','all','2045')=374;
+  tax_emission('World','TCE','all','2050')=477;
+  tax_emission('World','TCE','all','2055')=609;
+  tax_emission('World','TCE','all','2060')=778;
+  tax_emission('World','TCE','all','2070')=1267;
+  tax_emission('World','TCE','all','2080')=1833;
+  tax_emission('World','TCE','all','2090')=1833;
+  tax_emission('World','TCE','all','2100')=1833;
+  tax_emission('World','TCE','all','2110')=1833;
+$endif
+
 $INCLUDE MESSAGE/model_solve.gms
 
 *----------------------------------------------------------------------------------------------------------------------*
