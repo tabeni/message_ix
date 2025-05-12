@@ -19,11 +19,14 @@ $LOAD inv_tec, renewable_tec
 $LOAD balance_equality, time_relative
 $LOAD shares
 $LOAD addon, type_addon, cat_addon, map_tec_addon
-$LOAD storage_tec, level_storage, map_tec_storage
+$LOAD storage_tec, level_storage
 $GDXIN
 
-cat_year("lastmodelyear",year_all)=0;
-cat_year("lastmodelyear","2060")=1;
+*cat_year("lastmodelyear",year_all)=0;
+*cat_year("lastmodelyear","2060")=1;
+
+*for bug fix
+map_tec_storage(node,tec,storage_tec,level_storage,commodity)=0;
 
 Execute_load '%in%'
 * general parameters
@@ -75,9 +78,14 @@ demand_fixed=demand
 is_fixed_extraction, is_fixed_stock, is_fixed_new_capacity, is_fixed_capacity, is_fixed_activity, is_fixed_land
 fixed_extraction, fixed_stock, fixed_new_capacity, fixed_capacity, fixed_activity, fixed_land
 * storage parameters
-storage_initial, storage_self_discharge, time_order
+time_order
 ;
-
+storage_initial(node,tec,level,commodity,year_all,time)=0;
+storage_self_discharge(node,tec,level,commodity,year_all,time)=0;
+*bound_emission(node,type_emission,type_tec,"2110")=bound_emission(node,type_emission,type_tec,"2070");
+*bound_emission(node,type_emission,type_tec,"2100")=bound_emission(node,type_emission,type_tec,"2070");
+*bound_emission(node,type_emission,type_tec,"2090")=bound_emission(node,type_emission,type_tec,"2070");
+*bound_emission(node,type_emission,type_tec,"2080")=bound_emission(node,type_emission,type_tec,"2070");
 
 *----------------------------------------------------------------------------------------------------------------------*
 * ensure that each node is mapped to itself                                                                            *
